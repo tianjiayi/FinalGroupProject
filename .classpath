@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry excluding="src/" kind="src" path=""/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
 	<classpathentry kind="lib" path="/Users/jiayitian1/Desktop/Java Final Group Project/hello_from_zhou_kun" sourcepath="src/GroupProject/hello_from_zhou_kun"/>
 	<classpathentry kind="lib" path="/Users/jiayitian1/Downloads/jre1.8.0_91.jre/Contents/Home/lib/jfxswt.jar"/>
+	<classpathentry kind="lib" path="/Users/jiayitian1/Desktop/Java Final Group Project/mysql-connector-java-5.1.41-bin.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
