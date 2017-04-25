@@ -8,6 +8,8 @@ public class Driver {
 		getConnection();
 				
 	}
+	
+	//ioerowre;rw
 	/*	// Driver for mySql
 		Connection myConn = null;
 		try{		      
@@ -17,7 +19,7 @@ public class Driver {
 
 			//1. get a connection to database
 		    	    //note: my MySQL workbench port number is 3306
-			myConn = (Connection)DriverManager.getConnection("jdbc:mysql://airlineDB:3306//airlineReservationDB", "root","1");
+			myConn = (Connection)DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/airlineReservationDB", "root","1");
 			
 			if(myConn !=null){
 				System.out.println("Connected successfully to database.");
@@ -59,24 +61,14 @@ public class Driver {
 			//4. process the result set
 			while(myRs.next()){
 				System.out.println(myRs.getString("destination") + "   ,   "+ myRs.getString("flightCode"));
-				
-								
+									
 			}
-			
 						
-			
 		}catch(Exception ex){
 			System.out.println(ex);
-			
-			
+						
 		}
-			
-		
-		
+				
 		return null;
-	}
-		
-		
-		
-		
+	}		
 }
