@@ -52,7 +52,7 @@ public class app {
 					String sqAnswer = input.next();
 					int memberId = -1;
 					if(memberRsByUsername.getString("securityAnswer").equalsIgnoreCase(sqAnswer)){
-						System.out.println("login secuess");
+						System.out.println("login sucess");
 						memberId = memberRsByUsername.getInt("memberID");
 						//show booking info
 						//1 find all flight id in booking table by member id
