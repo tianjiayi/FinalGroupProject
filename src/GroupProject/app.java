@@ -34,10 +34,11 @@ public class app {
 			//found member in Db
 			if(memberRs.next()){
 				int member = memberRs.getInt("memberID"); 
+				//show booking info
 				List<Integer> FlightIdList = getFlightIdsByMemberId(member, conn);
 				printFlightInfoByFlightId(conn, FlightIdList);
 				//add or delete flight goes here
-				//add flight need user input destnatin and departure...get a flight
+				//add flight need user input destination and departure...get a flight
 				//user input Y or N to book
 				//Y ---> save to booking table ()
 			}else{
@@ -55,6 +56,8 @@ public class app {
 						System.out.println("login sucess");
 						memberId = memberRsByUsername.getInt("memberID");
 						//show booking info
+						List<Integer> FlightIdList = getFlightIdsByMemberId(memberId, conn);
+						printFlightInfoByFlightId(conn, FlightIdList);
 						//1 find all flight id in booking table by member id
 						//2 find all flight in flight table by flight id from step 1
 					}else{
@@ -63,6 +66,9 @@ public class app {
 						memberId = createUser(input, conn);
 					}
 				}else{
+					System.out.println("Username and password are not found. Please register first.");
+					createUser(input, conn);
+					
 					//wrong username and wrong password situation goes here
 					//create user
 				}
