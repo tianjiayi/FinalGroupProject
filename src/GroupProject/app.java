@@ -94,7 +94,7 @@ public class app {
 				case 5:
 					System.out.print("Please enter the flight information for adding: \n");
 					//create a flight
-					
+					createFlight(input, conn);
 					break;
 				case 8:
 					System.out.println("Logged out.\n");
@@ -737,10 +737,7 @@ public class app {
 //			}
 //	}
 //		
-//		
-//		
-//		
-//		
+
 //		
 //		//9.add flight information to database
 //	public static void method9(){
@@ -885,7 +882,40 @@ public class app {
 	}
 
 		
+	private static void createFlight(Scanner input, Connection conn) throws SQLException{
+		System.out.print("Please enter the flight information below: \n");
+		System.out.print("Enter the flight code: ");
+		String flightCode = input.next();
+		System.out.println("Enter the destination: ");
+		String destination = input.next();
+		System.out.println("Enter the flight's seat capacity: ");
+		String seatCapacity = input.next();
+		System.out.print("Enter the departure city: ");
+		String departureCity = input.next();
+		System.out.println("Enter the departure time: ");
+		String departureTime = input.next();
+		System.out.print("Enter the arrival time: ");
+		String arrivalTime = input.next();
+		
+		
+		
+		
+		//create flight in db
+		PreparedStatement createFlightPS = conn.prepareStatement(Queries.ADD_FLIGHT);
+		createFlightPS.setString(1, flightCode);
+		createFlightPS.setString(2, destination);
+		createFlightPS.setString(3, seatCapacity);
+		createFlightPS.setString(4, departureCity);
+		createFlightPS.setString(5, departureTime);
+		createFlightPS.setString(6, arrivalTime);
+		
+		
+		createFlightPS.executeUpdate();
+		System.out.println("Record is inserted into Flight table!");
+		
+		//get new flight 
 	
+	}
 	
 	
 	
