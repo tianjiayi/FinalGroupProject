@@ -41,6 +41,80 @@ public class app {
 				//add flight need user input destination and departure...get a flight
 				//user input Y or N to book
 				//Y ---> save to booking table ()
+
+				
+				
+				//start the loop for main menu
+				String quit= "i";
+				while(quit!="y"){
+				System.out.print("How can we help you?\n"+" Main menu \n" + 
+				"1:check flight information \n"+
+				"2:booking flight \n"+
+				"3:check booked flight informtation \n"+
+				"4:check your profile \n"+
+				"5:add flight (Admin only) \n"+ 
+				"6:delate flight (Admin only)\n"+
+				"7:check all member information (Admin only)\n"+ 
+				"8:log out \n"+"Enter a choice: ");
+				
+				int selection = input.nextInt();
+				switch(selection){
+				case 1:
+					System.out.println("All flight informtation are here: ");
+					
+					break;
+				case 2:
+					System.out.println("Enter an amount to withdraw: ");
+					
+					break;
+				case 3:
+					System.out.println("Your booked flight information: ");
+					getMemberIdByUsernameAndPassword(conn, username, password);
+					printFlightInfoByFlightId(conn, FlightIdList);
+					
+					break;
+				case 4:
+					System.out.println("Your profile information: ");
+					getMemberIdByUsernameAndPassword(conn, username, password);
+					printMemberProfByMemberId(conn, memberID);
+				case 8:
+					System.out.println("Logged out.\n");
+				    System.exit(0);
+				   
+					break;
+					
+				default:
+						System.out.println("Invalid input.Enter an option from 1 to 4: ");
+					
+				}
+				System.out.print("Would you like to quit? Y/N");
+				quit = input.next().toLowerCase();
+//				if(quit == "y") {selection= 4;
+//					
+//				
+//	
+//				}
+//				//if(quit == "y"){
+//					System.out.println("You've logged out.");
+//					System.exit(1);
+			
+			}
+			
+			
+			
+			
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
 			}else{
 				//member not found
 				PreparedStatement getMemberByUsernamePS = conn.prepareStatement(Queries.GET_MEMBER_BY_USERNAME);
@@ -66,11 +140,13 @@ public class app {
 						memberId = createUser(input, conn);
 					}
 				}else{
+					
+					//if wrong username and wrong password situation goes here
+					//create user
 					System.out.println("Username and password are not found. Please register first.");
 					createUser(input, conn);
 					
-					//wrong username and wrong password situation goes here
-					//create user
+					
 				}
 			}
 		}else if(membership.equalsIgnoreCase("N")){
@@ -655,7 +731,7 @@ public class app {
 //			ResultSet resultSet = myStat.executeQuery(Queries.GET_MEMBERINFO_BY_MEMBERID);
 //		
 //			while(resultSet.next()){
-//			System.out.println(resultSet.getString("memberID") + "   ,   "+ resultSet.getString("fname")+ "    ,   "+ resultSet.getString("ssn"));
+//			System.out.println(resultSet.getString("fname")+ "    ,   "+ resultSet.getString("ssn"));
 //									
 //			}    
 //			} catch (Exception e) {
@@ -809,15 +885,38 @@ public class app {
 		}
 		System.out.println("*****************************************************************************");
 	}
-}
-		
-		
-		
-		
 
+		
+		
+		
+		
+     private static void printMemberProfByMemberId(Connection conn, List<Integer> memberId) throws SQLException{
+    	 System.out.println("*****************************************************************************");
+    	 for(int id: memberId){
+    	 PreparedStatement myStat = conn.prepareStatement(Queries.GET_MEMBERINFO_BY_MEMBERID);
+    	 myStat.setInt(1,id);
+    	 ResultSet resultSet = myStat.executeQuery();
+    	 while(resultSet.next()){
+				System.out.println("*"+ resultSet.getString("memberID") + " , "
+						+ resultSet.getString("lname")+ " , "
+						+ resultSet.getString("fname")+" , "
+						+ resultSet.getString("address")+" , "
+						+ resultSet.getString("zip")+" , "
+						+ resultSet.getString("state")+" , "
+						+ resultSet.getString("email")+" , "
+						+ resultSet.getString("ssn")+" , "
+						+ resultSet.getString("userneme")+" , "
+						+ resultSet.getString("email"));
+			
+		}
+		System.out.println("*****************************************************************************");
+    	 } 
+    	 
+    	 
+     }
 			
 			
 			
 		
-		
+}
 
