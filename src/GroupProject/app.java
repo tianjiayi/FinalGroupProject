@@ -46,7 +46,7 @@ public class app {
 				
 				//start the loop for main menu
 				String quit= "i";
-				while(quit!="y"){
+				while(quit!="n"){
 				System.out.print("How can we help you?\n"+" Main menu \n" + 
 				"1:check flight information \n"+
 				"2:booking flight \n"+
@@ -64,7 +64,19 @@ public class app {
 					
 					break;
 				case 2:
-					System.out.println("Enter an amount to withdraw: ");
+					System.out.println("Enter the departure ciry: ");
+					String departureCity = input.next();
+					System.out.println("Enter the destination city: ");
+					String destination = input.next();
+					System.out.println("Here is the matching flight information: ");
+					
+					//call method show matching flight information
+					
+					System.out.println("Enter a flight number to book: ");
+					int flightId = input.nextInt();					
+					//put into the order table in database
+					
+					System.out.println("Your flight has booked successfully.");
 					
 					break;
 				case 3:
@@ -75,8 +87,15 @@ public class app {
 					break;
 				case 4:
 					System.out.println("Your profile information: ");
+					
 					getMemberIdByUsernameAndPassword(conn, username, password);
-					printMemberProfByMemberId(conn, memberID);
+					//?
+					break;
+				case 5:
+					System.out.print("Please enter the flight information for adding: \n");
+					//create a flight
+					
+					break;
 				case 8:
 					System.out.println("Logged out.\n");
 				    System.exit(0);
@@ -87,16 +106,9 @@ public class app {
 						System.out.println("Invalid input.Enter an option from 1 to 4: ");
 					
 				}
-				System.out.print("Would you like to quit? Y/N");
+				System.out.print("Ready to go back to the main menu? press any key except 'n' ");
 				quit = input.next().toLowerCase();
-//				if(quit == "y") {selection= 4;
-//					
-//				
-//	
-//				}
-//				//if(quit == "y"){
-//					System.out.println("You've logged out.");
-//					System.exit(1);
+
 			
 			}
 			
@@ -129,11 +141,18 @@ public class app {
 					if(memberRsByUsername.getString("securityAnswer").equalsIgnoreCase(sqAnswer)){
 						System.out.println("login sucess");
 						memberId = memberRsByUsername.getInt("memberID");
-						//show booking info
-						List<Integer> FlightIdList = getFlightIdsByMemberId(memberId, conn);
-						printFlightInfoByFlightId(conn, FlightIdList);
+						//show booking info:
 						//1 find all flight id in booking table by member id
+						List<Integer> FlightIdList = getFlightIdsByMemberId(memberId, conn);
 						//2 find all flight in flight table by flight id from step 1
+						printFlightInfoByFlightId(conn, FlightIdList);
+						//main menu loop goes here
+						
+						
+						
+						
+						
+						
 					}else{
 						//wrong security answer
 						System.out.println("login failed please register");
@@ -379,27 +398,15 @@ public class app {
 //					e.printStackTrace();
 //				}
 //			
-//			
-//			
-//			//!  return to log in?
-//			
-//		
+
 //		}
 //			
-//		
-//		
-//		
+
 //			System.out.print("Are you ready for booking a flight?  Y/N");
 //			String booking = input.next();
 //			if(booking.equalsIgnoreCase("Y")){
 //				
-//				
-//				
-//				
-//				
-//				
-//				
-//				
+		
 //			}else if (booking.equalsIgnoreCase("N")){
 //				
 //				System.out.print("Do you want to log out? Y/N");
@@ -513,16 +520,7 @@ public class app {
 //		
 //		
 //		
-//		
-//		
-//		
-//		
-//		
-//		
-//
-//		
-//		
-//		
+	
 //		
 //		//1. method: get member information
 //		public static void method1(){
@@ -887,6 +885,10 @@ public class app {
 	}
 
 		
+	
+	
+	
+	
 		
 		
 		
