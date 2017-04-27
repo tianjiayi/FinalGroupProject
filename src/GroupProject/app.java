@@ -48,12 +48,12 @@ public class app {
 				String quit= "i";
 				while(quit!="n"){
 				System.out.print("How can we help you?\n"+" Main menu \n" + 
-				"1:check flight information \n"+
+				"1:check all flights information \n"+
 				"2:booking flight \n"+
 				"3:check booked flight informtation \n"+
-				"4:check your profile \n"+
+				
 				"5:add flight (Admin only) \n"+ 
-				"6:delate flight (Admin only)\n"+
+				"6:delete flight (Admin only)\n"+
 				"7:check all member information (Admin only)\n"+ 
 				"8:log out \n"+"Enter a choice: ");
 				
@@ -61,6 +61,7 @@ public class app {
 				switch(selection){
 				case 1:
 					System.out.println("All flight informtation are here: ");
+					printAllFlightInfo(conn);
 					
 					break;
 				case 2:
@@ -85,16 +86,26 @@ public class app {
 					printFlightInfoByFlightId(conn, FlightIdList);
 					
 					break;
-				case 4:
-					System.out.println("Your profile information: ");
-					
-					getMemberIdByUsernameAndPassword(conn, username, password);
-					//?
-					break;
+				
 				case 5:
 					System.out.print("Please enter the flight information for adding: \n");
 					//create a flight
 					createFlight(input, conn);
+					break;
+				case 6:
+					
+					
+					//call deleteFlight method
+					deleteFlight(input, conn);
+					
+					//flight deleted
+					break;
+					
+				case 7:					
+					System.out.print("All member's information: \n");
+					//call get all member information method
+					printAllMemberInfo(conn);
+					
 					break;
 				case 8:
 					System.out.println("Logged out.\n");
@@ -880,6 +891,54 @@ public class app {
 		}
 		System.out.println("*****************************************************************************");
 	}
+	
+	
+	private static void printAllFlightInfo(Connection conn) throws SQLException{
+		System.out.println("*****************************************************************************");
+		PreparedStatement myStat = conn.prepareStatement(Queries.GET_ALL_FLIGHTS);
+		ResultSet resultSet = myStat.executeQuery();
+		while(resultSet.next()){
+			System.out.println("*"+ resultSet.getString("flightID") + " , "
+					+ resultSet.getString("flightCode")+ " , "
+					+ resultSet.getString("departureCity")+" , "
+					+ resultSet.getString("destination")+" , "
+					+ resultSet.getString("departureTime")+" , "
+					+ resultSet.getString("arrivalTime")+" , "
+					+ resultSet.getString("seatCapacity"));
+		}
+	
+	System.out.println("*****************************************************************************");
+		
+	
+	}
+	
+	
+	private static void printAllMemberInfo(Connection conn) throws SQLException{
+		System.out.println("*****************************************************************************");
+		PreparedStatement myStat = conn.prepareStatement(Queries.GET_MEMBERINFO);
+		ResultSet resultSet = myStat.executeQuery();
+		while(resultSet.next()){
+			System.out.println("*"+ resultSet.getString("memberID") + " , "
+					+ resultSet.getString("lname")+ " , "
+					+ resultSet.getString("fname")+" , "
+					+ resultSet.getString("address")+" , "
+					+ resultSet.getString("zip")+" , "
+					+ resultSet.getString("state")+" , "
+					+ resultSet.getString("username")+" , "
+					+ resultSet.getString("password")+" , "
+					+ resultSet.getString("email")+" , "
+					+ resultSet.getString("ssn")+" , "
+					+ resultSet.getString("securityQuestion")+" , "
+					+ resultSet.getString("securityAnswer"));
+		}
+	
+	System.out.println("*****************************************************************************");
+		
+	
+	}
+	
+	
+	
 
 		
 	private static void createFlight(Scanner input, Connection conn) throws SQLException{
@@ -917,7 +976,17 @@ public class app {
 	
 	}
 	
+	private static void deleteFlight(Scanner input, Connection conn) throws SQLException{
+		System.out.print("Please enter the flight id numer for delete: " );
+		int deleteFlightId = input.nextInt();
+		PreparedStatement deleteFlightPS = conn.prepareStatement(Queries.DELETE_FLIGHT);
+		deleteFlightPS.setInt(1, deleteFlightId);
+		deleteFlightPS.executeUpdate();
+		System.out.println("Flight deleted!");
 	
+	
+	
+	}
 	
 		
 		
